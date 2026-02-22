@@ -6,32 +6,506 @@
     <title>Christian · clean portfolio</title>
     <!-- Bootstrap 5.3 (light/dark ready) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <!-- Custom styles (global.css) -->
-    <link rel="stylesheet" href="global.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Elegant font (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
-    <!-- Bootstrap Icons (optional, for top icon) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom styles -->
+    <style>
+        /* global.css – responsive, elegant, dark mode, sticky header blur, floating top button */
+        :root {
+            --bg: #ffffff;
+            --text: #111111;
+            --secondary: #6c757d;
+            --border: #eaeaea;
+            --card-bg: #ffffff;
+            --table-header-bg: #f8f9fa;
+            --btn-outline: #111;
+            --link-hover: #000;
+            --shadow: rgba(0, 0, 0, 0.03) 0 4px 12px;
+            --figure-bg: #f2f2f2;
+            --header-bg: rgba(255, 255, 255, 0.8);
+            
+            /* Skills section variables */
+            --skills-bg: #f9fafb;
+            --skills-card-bg: #ffffff;
+            --skills-tag-bg: #f3f4f6;
+            --skills-tag-hover: #e5e7eb;
+            --skills-title-color: #111;
+            --skills-text-secondary: #4b5563;
+        }
+
+        /* dark mode variables */
+        body.dark-mode {
+            --bg: #1a1a1a;
+            --text: #f0f0f0;
+            --secondary: #a0a0a0;
+            --border: #333;
+            --card-bg: #222;
+            --table-header-bg: #2a2a2a;
+            --btn-outline: #f0f0f0;
+            --link-hover: #fff;
+            --shadow: 0 4px 12px rgba(255,255,255,0.02);
+            --figure-bg: #2c2c2c;
+            --header-bg: rgba(26, 26, 26, 0.8);
+            
+            --skills-bg: #1a1a1a;
+            --skills-card-bg: #222;
+            --skills-tag-bg: #2a2a2a;
+            --skills-tag-hover: #4b5563;
+            --skills-title-color: #d1d5db;  /* Light gray - visible on dark */
+            --skills-text-secondary: #9ca3af;
+        }
+
+        /* base */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.2s ease, color 0.2s ease;
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--text);
+            transition: color 0.15s;
+        }
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: underline !important;
+        }
+
+        /* wrapper */
+        .wrapper {
+            background-color: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main { flex: 1; }
+
+        /* sticky header with blur (floating effect) */
+        .sticky-top {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background-color: var(--header-bg) !important;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* header buttons */
+        .btn-outline-dark {
+            border-color: var(--border);
+            color: var(--text);
+            background: transparent;
+        }
+        .btn-outline-dark:hover {
+            background-color: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+        .dark-mode .btn-outline-dark {
+            border-color: var(--border);
+            color: var(--text);
+        }
+        .dark-mode .btn-outline-dark:hover {
+            background-color: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+        /* cards */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border) !important;
+            box-shadow: var(--shadow);
+            transition: transform 0.1s;
+        }
+        .card .card-title {
+            color: var(--text);
+        }
+        .card .card-text {
+            color: var(--secondary);
+        }
+
+        /* card-slide */
+        .card-slide {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border) !important;
+        }
+        .box-figure {
+            background-color: var(--figure-bg) !important;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        /* profile image */
+        .rounded-circle {
+            border: 2px solid var(--border) !important;
+        }
+
+        /* headings */
+        h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+            color: var(--text);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+        .text-secondary {
+            color: var(--secondary) !important;
+        }
+
+        /* dark mode toggle icon */
+        #darkmodeToggle {
+            font-size: 1.4rem;
+            line-height: 1;
+            padding: 0.25rem 0.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text);
+        }
+        #darkmodeToggle:hover {
+            opacity: 0.8;
+        }
+
+        /* floating go to top button */
+        #goTopBtn {
+            background-color: var(--text);
+            color: var(--bg);
+            border: none;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #goTopBtn:hover {
+            opacity: 1;
+        }
+        .dark-mode #goTopBtn {
+            background-color: var(--text);
+            color: var(--bg);
+        }
+
+        /* offcanvas (mobile menu) */
+        .offcanvas {
+            background-color: var(--bg);
+            color: var(--text);
+            border-left: 1px solid var(--border);
+        }
+        .offcanvas .btn-close {
+            filter: brightness(0.8);
+        }
+        .dark-mode .offcanvas .btn-close {
+            filter: invert(1);
+        }
+
+        /* Skills Section */
+        #skills {
+            padding: 3rem 1rem;
+            background-color: var(--skills-bg);
+        }
+
+        @media (min-width: 768px) {
+            #skills {
+                padding: 5rem 1rem;
+            }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        .section-description {
+            font-size: 1rem;
+            color: var(--skills-text-secondary);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 768px) {
+            .section-description {
+                font-size: 1.125rem;
+                margin-bottom: 4rem;
+                max-width: 42rem;
+            }
+        }
+
+        /* Skills grid layout */
+        .skills-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 640px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        /* Skills category cards */
+        .category-card {
+            background-color: var(--skills-card-bg);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+        }
+
+        @media (min-width: 768px) {
+            .category-card {
+                padding: 2rem;
+            }
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            text-align: center;
+            margin-bottom: 1.25rem;
+            color: var(--skills-title-color);
+            font-weight: 600;
+        }
+
+        @media (min-width: 768px) {
+            .category-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Skills tags container */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .skills-container {
+                gap: 0.75rem;
+            }
+        }
+
+        /* Individual skill tags */
+        .skill-tag {
+            padding: 0.375rem 0.875rem;
+            background-color: var(--skills-tag-bg);
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            transition: all 0.2s ease-in-out;
+            color: var(--text);
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+
+        @media (min-width: 768px) {
+            .skill-tag {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+                border-radius: 0.5rem;
+            }
+        }
+
+        .skill-tag:hover {
+            background-color: var(--skills-tag-hover);
+            transform: translateY(-2px);
+            border-color: var(--skills-title-color);
+        }
+
+        /* Profile header responsive */
+        .display-4 {
+            font-size: 3rem !important;
+            line-height: 0.9 !important;
+        }
+
+        @media (min-width: 576px) {
+            .display-4 {
+                font-size: 5rem !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .display-4 {
+                font-size: 7rem !important;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .display-4 {
+                font-size: 9rem !important;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .display-4 {
+                font-size: 150px !important;
+            }
+        }
+
+        /* Image responsive */
+        .head-user-pro__photo img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .head-user-pro__photo img {
+                max-width: 700px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .head-user-pro__photo img {
+                max-width: 900px;
+            }
+        }
+
+        /* Container padding */
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            border-radius: 2rem;
+            font-weight: 500;
+        }
+
+        footer {
+            border-top-color: var(--border) !important;
+        }
+
+        /* Contact Section Styles */
+        #contact {
+            background-color: var(--bg);
+        }
+        
+        .max-w-6xl {
+            max-width: 72rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        /* Add to your CSS for the contact section */
+        .bg-blue-100 {
+            background-color: #f1f1f1;
+        }
+
+        .dark-mode .dark-bg-blue-900 {
+            background-color: #040a1b;
+        }
+
+        .text-blue-600 {
+            color: #1a1a1a;
+        }
+
+        .dark-mode .dark-text-blue-400 {
+            color: #f1f1f1;
+        }
+
+        /* Form controls */
+        .form-control {
+            background-color: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: #2563eb;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .dark-mode .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #3b82f6;
+        }
+
+        .dark-mode .btn-primary:hover {
+            background-color: #2563eb;
+        }
+    </style>
 </head>
 <body>
     <!-- sticky header with blur (floating effect) -->
-    <header class="sticky-top bg-blur py-2">
+    <header class="sticky-top py-2">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <!-- logo -->
                 <div class="header-main_logo fs-3 fw-semibold">
-                    <a href="Home.html" class="text-decoration-none">CTL.</a>
+                    <a href="Home.html" class="text-decoration-none text-reset">CL.</a>
                 </div>
 
                 <!-- desktop nav + dark mode toggle -->
                 <div class="d-flex gap-2 align-items-center">
                     <nav class="d-none d-md-block">
                         <ul class="nav">
-                            <li class="nav-item"><button class="btn btn-sm btn-outline-dark mode-btn"><a href="Home.html" class="text-reset text-decoration-none">Follow</a></button></li>
-                            <li class="nav-item"><button class="btn btn-sm btn-outline-dark mode-btn"><a href="https://github.com/CHAANIEE" class="text-reset text-decoration-none">Github</a></button></li>
-                            <li class="nav-item"><button class="btn btn-sm btn-outline-dark mode-btn"><a href="https://www.linkedin.com/in/christian-lagula-0bb30433b/" class="text-reset text-decoration-none">Linkedin</a></button></li>
+                            <li class="nav-item">
+                                <a href="index.html" target="_blank" class="btn btn-sm btn-outline-dark">Follow</a> </li>
+                            <li class="nav-item"><a href="https://github.com/CHAANIEE" class="btn btn-sm btn-outline-dark">Github</a></li>
+                            <li class="nav-item"><a href="https://www.linkedin.com/in/christian-lagula-0bb30433b/" class="btn btn-sm btn-outline-dark">Linkedin</a></li>
                         </ul>
                     </nav>
                     <!-- mobile menu toggle (offcanvas) -->
@@ -47,7 +521,7 @@
         </div>
     </header>
 
-    <!-- offcanvas mobile menu (floating menu for small screens) -->
+    <!-- offcanvas mobile menu -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
@@ -55,81 +529,94 @@
         </div>
         <div class="offcanvas-body">
             <ul class="nav flex-column">
-                <li class="nav-item mb-2"><button class="btn btn-outline-dark w-100"><a href="#" class="text-reset text-decoration-none">Follow</a></button></li>
-                <li class="nav-item mb-2"><button class="btn btn-outline-dark w-100"><a href="https://github.com/CHAANIEE" class="text-reset text-decoration-none">Github</a></button></li>
-                <li class="nav-item mb-2"><button class="btn btn-outline-dark w-100"><a href="https://www.linkedin.com/in/christian-lagula-0bb30433b/" class="text-reset text-decoration-none">Linkedin</a></button></li>
+                <li class="nav-item mb-2"><a href="Home.html" class="btn btn-outline-dark w-100">Follow</a></li>
+                <li class="nav-item mb-2"><a href="https://github.com/CHAANIEE" class="btn btn-outline-dark w-100">Github</a></li>
+                <li class="nav-item mb-2"><a href="https://www.linkedin.com/in/christian-lagula-0bb30433b/" class="btn btn-outline-dark w-100">Linkedin</a></li>
             </ul>
         </div>
     </div>
 
     <main>
         <!-- profile header -->
-        <section class="head-user py-5 text-center" id="start">
+        <section class="head-user py-4 py-md-5 text-center" id="start">
             <div class="container">
-                <h1 class="display-4 fw-semibold">CHRISTIAN LAGULA</h1>
-                <h2 class="h4 text-secondary">Philippines – Davao</h2>
+                <h1 class="display-4 fw-semibold">CHRISTIAN<br>LAGULA</h1>
+                <h2 class="h4 text-secondary mt-4 mt-md-5 fw-bold">Philippines – Davao</h2>
             </div>
         </section>
 
-        <!-- profile photo + tables (stack vertically on small, horizontally on md+) -->
+        <!-- profile photo -->
         <section class="container my-4">
-            <div class="row g-4 align-items-center">
-                <!-- left table: skills -->
-                <div class="col-md-4">
-                    <div class="table-responsive">
-                        <table class="table table-bordered tb-stats align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Skill Tool</th>
-                                    <th>Proficiency</th>
-                                    <th>Years</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>HTML/CSS</td><td>Intermediate</td><td>1 year</td></tr>
-                                <tr><td>JAVA</td><td>Intermediate</td><td>1 year</td></tr>
-                                <tr><td>Python</td><td>Beginner</td><td>6 months</td></tr>
-                            </tbody>
-                        </table>
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <figure class="head-user-pro__photo">
+                        <img src="profile.jpeg.jpg" 
+                             alt="Profile" 
+                             class="img-fluid border" 
+                             style="box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    </figure>              
+                </div>
+            </div>
+        </section>
+
+        <!-- skills section -->
+        <section id="skills">
+            <div class="container">
+                <h2 class="section-title">Skills & Technologies</h2>
+                <p class="section-description">
+                    A collection of technologies and tools I work with regularly.
+                </p>
+            
+                <div class="skills-grid">
+                    <!-- Frontend Category -->
+                    <div class="category-card">
+                        <h3 class="category-title">Frontend</h3>
+                        <div class="skills-container">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">Vue.js</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                        </div>
                     </div>
-                </div>
-                <!-- profile image (centered) -->
-                <div class="col-md-4 text-center">
-                    <figure class="mb-0">
-                        <img src="profile.jpeg" alt="Profile" class="img-fluid border" style="max-width: 200px; width: 100%;">
-                    </figure>
-                </div>
-                <!-- right table: languages / budget -->
-                <div class="col-md-4">
-                    <div class="table-responsive">
-                        <table class="table table-bordered tb-stats">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>LANGUAGES</th><th>STATUS</th><th>BUDGET</th><th>OPEN TO</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>English, Tagalog</td><td>BASIC</td><td>Under $3,000</td><td>Remote</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                
+                    <!-- Backend Category -->
+                    <div class="category-card">
+                        <h3 class="category-title">Backend</h3>
+                        <div class="skills-container">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">PHP</span>
+                            <span class="skill-tag">Laravel</span>
+                        </div>
+                    </div>
+                
+                    <!-- Tools & Others Category -->
+                    <div class="category-card">
+                        <h3 class="category-title">Tools & Others</h3>
+                        <div class="skills-container">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">VS Code</span>
+                            <span class="skill-tag">Figma</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- best works (cards) - responsive grid -->
+        <!-- best works (cards) -->
         <section class="anchor-section my-5" id="works">
             <div class="container">
                 <p class="text-center mb-4 fs-5">See a collection of my <strong>best works</strong> below.</p>
-                <div class="row g-4">
+                <div class="row g-3 g-md-4">
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="card h-100 border-0 shadow-sm">
                             <img src="https://placehold.co/400x250/eee/aaa?text=Project+1" class="card-img-top" alt="Project 1">
                             <div class="card-body">
-                                <h5 class="card-title">Project 1</h5>
-                                <p class="card-text text-secondary">A brief description of Project 1.</p>
+                                <h5 class="card-title">Restaurant</h5>
+                                <p class="card-text text-secondary">A React Restaurant Websites.</p>
                             </div>
                         </div>
                     </div>
@@ -137,8 +624,8 @@
                         <div class="card h-100 border-0 shadow-sm">
                             <img src="https://placehold.co/400x250/eee/aaa?text=Project+2" class="card-img-top" alt="Project 2">
                             <div class="card-body">
-                                <h5 class="card-title">Project 2</h5>
-                                <p class="card-text text-secondary">A brief description of Project 2.</p>
+                                <h5 class="card-title">DSA Heap UI/UX.</h5>
+                                <p class="card-text text-secondary">Our final project in DSA using Heap.</p>
                             </div>
                         </div>
                     </div>
@@ -146,8 +633,8 @@
                         <div class="card h-100 border-0 shadow-sm">
                             <img src="https://placehold.co/400x250/eee/aaa?text=Project+3" class="card-img-top" alt="Project 3">
                             <div class="card-body">
-                                <h5 class="card-title">Project 3</h5>
-                                <p class="card-text text-secondary">A brief description of Project 3.</p>
+                                <h5 class="card-title">Valentines Gift</h5>
+                                <p class="card-text text-secondary">A Valentines Gift to my GF.</p>
                             </div>
                         </div>
                     </div>
@@ -155,19 +642,19 @@
             </div>
         </section>
 
-        <!-- latest submissions (minimal gallery) - responsive two columns -->
+        <!-- latest submissions -->
         <section class="anchor-section py-4" id="submissions">
             <div class="container">
                 <div class="mb-4">
                     <span class="text-uppercase small text-secondary">All projects</span>
-                    <h3 class="fw-normal">Latest submissions <br> on awwwwards</h3>
+                    <h3 class="fw-normal">Latest submissions <br> on github</h3>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-6">
                         <div class="card-slide border p-3 h-100">
                             <div class="box-figure bg-light mb-2" style="height: 180px; background: #ddd;"></div>
                             <div class="card-slide__info">
-                                <h4 class="h5"><a href="project1.html" class="text-reset text-decoration-none">Project 1</a></h4>
+                                <h4 class="h5"><a href="project1.html" class="text-reset text-decoration-none">Hospital Website</a></h4>
                             </div>
                         </div>
                     </div>
@@ -175,9 +662,109 @@
                         <div class="card-slide border p-3 h-100">
                             <div class="box-figure bg-light mb-2" style="height: 180px; background: #ddd;"></div>
                             <div class="card-slide__info">
-                                <h4 class="h5"><a href="project2.html" class="text-reset text-decoration-none">Project 2</a></h4>
+                                <h4 class="h5"><a href="project2.html" class="text-reset text-decoration-none">Log in page PHP</a></h4>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- contact section -->
+        <section id="contact" class="py-20 px-4" style="padding-top: 80px;">
+            <div class="container" style="max-width: 72rem; margin: 0 auto;">
+                <!-- Section Header -->
+                <h2 class="text-center mb-4" style="font-size: 2.5rem; font-weight: 500;">Get In Touch</h2>
+                <p class="text-center text-secondary mb-5" style="max-width: 36rem; margin-left: auto; margin-right: auto; font-size: 1.125rem;">
+                    Have a project in mind or just want to chat? Feel free to reach out!
+                </p>
+        
+                <!-- Two Column Layout -->
+                <div class="row g-5">
+                    <!-- Contact Info Column -->
+                    <div class="col-md-6">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Contact Information</h3>
+                        <p class="text-secondary mb-4">
+                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                        </p>
+        
+                        <div class="d-flex flex-column gap-4">
+                            <!-- Email -->
+                            <a href="mailto:christian@example.com" class="text-decoration-none text-reset">
+                                <div class="d-flex gap-3">
+                                    <div class="bg-blue-100 dark-bg-blue-900 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-blue-600 dark-text-blue-400">
+                                            <rect x="2" y="4" width="20" height="16" rx="2" stroke-width="2"/>
+                                            <path d="M22 7L13.03 12.7C12.41 13.1 11.59 13.1 10.97 12.7L2 7" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="small text-secondary mb-0">Email</p>
+                                        <p class="mb-0">christianlagula12345678@gmail.com</p>
+                                    </div>
+                                </div>
+                            </a>
+        
+                            <!-- Phone -->
+                            <a href="tel:+639123456789" class="text-decoration-none text-reset">
+                                <div class="d-flex gap-3">
+                                    <div class="bg-blue-100 dark-bg-blue-900 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-blue-600 dark-text-blue-400">
+                                            <path d="M22 16.92V19C22.0001 19.4682 21.8243 19.9175 21.5124 20.2564C21.2006 20.5953 20.7783 20.7959 20.325 20.814C19.6604 20.8417 18.9983 20.7925 18.35 20.667C16.742 20.3537 15.201 19.7597 13.8 18.916C12.4323 18.1042 11.2006 17.0821 10.155 15.895C9.00003 14.76 8.06003 13.4 7.40003 11.92C6.60003 10.34 6.12003 8.63 6.00003 6.91C5.96678 6.22255 5.92003 5.53563 5.86003 4.85C5.84222 4.37151 5.9828 3.89897 6.25684 3.51444C6.53088 3.12991 6.91933 2.85677 7.36503 2.74C8.00455 2.57986 8.66627 2.5486 9.31503 2.648C9.58952 2.69878 9.84384 2.82644 10.0489 3.01599C10.254 3.20554 10.4015 3.44912 10.475 3.719L11.085 5.879C11.2487 6.43385 11.2887 7.02073 11.2022 7.59439C11.1158 8.16805 10.9055 8.71072 10.59 9.179C10.3585 9.53802 10.2187 9.9487 10.183 10.375C10.1472 10.8013 10.2167 11.2292 10.385 11.622C10.8534 12.6469 11.5098 13.5726 12.315 14.345C13.1508 15.1201 14.1187 15.7344 15.171 16.155C15.543 16.3138 15.9474 16.3791 16.348 16.3459C16.7486 16.3127 17.1333 16.1822 17.468 15.966C17.9564 15.6723 18.513 15.5058 19.085 15.483C19.657 15.4603 20.2249 15.5821 20.735 15.836L22.105 16.526C22.3596 16.6417 22.571 16.8349 22.7106 17.0782C22.8502 17.3215 22.9107 17.6023 22.884 17.881C22.8146 18.5696 22.6073 19.236 22.275 19.835" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="small text-secondary mb-0">Phone</p>
+                                        <p class="mb-0">+63 966 047 2225</p>
+                                    </div>
+                                </div>
+                            </a>
+        
+                            <!-- Location -->
+                            <div class="d-flex gap-3">
+                                <div class="bg-blue-100 dark-bg-blue-900 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; flex-shrink: 0;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-blue-600 dark-text-blue-400">
+                                        <path d="M20 10C20 14.4183 17 18 12 22C7 18 4 14.4183 4 10C4 5.58172 7.58172 2 12 2C16.4183 2 20 5.58172 20 10Z" stroke-width="2"/>
+                                        <circle cx="12" cy="10" r="3" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-0">Location</p>
+                                    <p class="mb-0">Davao, Philippines</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Contact Form Column -->
+                    <div class="col-md-6">
+                        <form id="contactForm" onsubmit="handleSubmit(event)">
+                            <div class="mb-4">
+                                <label for="name" class="form-label small mb-1">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       placeholder="Your name" required
+                                       style="border-radius: 0.5rem; padding: 0.75rem 1rem;">
+                            </div>
+        
+                            <div class="mb-4">
+                                <label for="email" class="form-label small mb-1">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                       placeholder="your.email@example.com" required
+                                       style="border-radius: 0.5rem; padding: 0.75rem 1rem;">
+                            </div>
+        
+                            <div class="mb-4">
+                                <label for="message" class="form-label small mb-1">Message</label>
+                                <textarea class="form-control" id="message" name="message" 
+                                          rows="5" placeholder="Tell me about your project..." required
+                                          style="border-radius: 0.5rem; padding: 0.75rem 1rem;"></textarea>
+                            </div>
+        
+                            <button type="submit" class="btn btn-primary w-100 py-3" 
+                                    style="border-radius: 0.5rem; font-weight: 500;">
+                                Send Message
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -186,18 +773,37 @@
 
     <footer class="py-4 mt-5 border-top">
         <div class="container text-center">
-            <p class="mb-0 small text-secondary">&copy; 2024 Christian Lagula. All rights reserved.</p>
+            <p class="mb-0 small text-secondary">&copy; 2026 Christian Lagula. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Floating go to top button (appears after scroll) -->
-    <button id="goTopBtn" class="btn btn-dark rounded-circle position-fixed bottom-0 end-0 m-4 d-none" style="z-index: 1030; width: 48px; height: 48px;" aria-label="Go to top">
+    <!-- Floating go to top button -->
+    <button id="goTopBtn" class="btn btn-dark rounded-circle position-fixed bottom-0 end-0 m-4 d-none" style="z-index: 1030;" aria-label="Go to top">
         <i class="bi bi-arrow-up"></i>
     </button>
 
-    <!-- Bootstrap bundle + dark mode toggle + top button logic -->
+    <!-- Bootstrap bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    
     <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Handle form submission
+            console.log('Form submitted:', formData);
+            alert('Thank you for your message! I will get back to you soon.');
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+        }
+
         (function() {
             // Dark mode toggle
             const toggleBtn = document.getElementById('darkmodeToggle');
