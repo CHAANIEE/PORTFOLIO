@@ -379,7 +379,7 @@
             transition: all 0.2s ease;
         }
         .form-control:focus {
-            border-color: #2563eb;
+            border-color: #000000;
             outline: none;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
@@ -387,18 +387,42 @@
             box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
         }
         .btn-primary {
-            background-color: #2563eb;
+            background-color: #434242;
             border: none;
             color: white;
         }
         .btn-primary:hover {
-            background-color: #1d4ed8;
+            background-color: #000000;
         }
         .dark-mode .btn-primary {
-            background-color: #3b82f6;
+            background-color: #434242;
         }
         .dark-mode .btn-primary:hover {
-            background-color: #2563eb;
+            background-color: #000000;
+        }
+        .project-card {
+        display: block;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-card:hover .card {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
+            cursor: pointer;
+        }
+
+        .project-card:active .card {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .project-card .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -454,7 +478,7 @@
                     <figure class="head-user-pro__photo">
                         <img
                              src="pages/pictures/profile.jpg" 
-                             alt="Profile" 
+                             alt="Responsive image" 
                              class="img-fluid border" 
                              style="box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                     </figure>              
@@ -505,31 +529,37 @@
                 <p class="text-center mb-4 fs-5">See a collection of my <strong>best works</strong> below.</p>
                 <div class="row g-3 g-md-4">
                     <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <img src="pages/pictures/restaurant.png" class="card-img-top" alt="Project 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Restaurant</h5>
-                                <p class="card-text text-secondary">A React Restaurant Websites.</p>
+                        <a href="https://github.com/CHAANIEE/REACT-JS-RESTAURANT.git" class="text-decoration-none text-dark project-card" target="_blank">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <img src="pages/pictures/restaurant.png" class="card-img-top" alt="Project 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Restaurant</h5>
+                                    <p class="card-text text-secondary">A React Restaurant Websites.</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <img src="pages/pictures/DSA.png" class="card-img-top" alt="Project 2">
-                            <div class="card-body">
-                                <h5 class="card-title">DSA Heap UI/UX.</h5>
-                                <p class="card-text text-secondary">Our final project in DSA using Heap.</p>
+                        <a href="https://github.com/CHAANIEE/SAFETY-APP.git" class="text-decoration-none text-dark project-card" target="_blank">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <img src="pages/pictures/safety-app.png" class="card-img-top" alt="Project 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Safety App.</h5>
+                                    <p class="card-text text-secondary">A Django project, To know how safe you are.</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <img src="pages/pictures/Valentine.png" class="card-img-top" alt="Project 3">
-                            <div class="card-body">
-                                <h5 class="card-title">Valentines Gift</h5>
-                                <p class="card-text text-secondary">A Valentines Gift to my GF.</p>
+                        <a href="https://github.com/CHAANIEE/DJANGO-PROJECT.git" class="text-decoration-none text-dark project-card" target="_blank">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <img src="pages/pictures/wallet-wise.png" class="card-img-top" alt="Project 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Wallet Wise</h5>
+                                    <p class="card-text text-secondary">A Django, Money Tracker system.</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -543,17 +573,25 @@
                 <div class="row g-4">
                     <div class="col-md-6">
                         <div class="card-slide border p-3 h-100">
-                            <div class="box-figure bg-light mb-2" style="height: 180px; background: #ddd;"></div>
+                            <img src="pages/pictures/work-progress.jpg" alt="Hospital Website" class="img-fluid mb-2" style="height: 180px; object-fit: cover;">
                             <div class="card-slide__info">
-                                <h4 class="h5"><a href="pages/pictures/loading.png" class="text-reset text-decoration-none">Hospital Website</a></h4>
+                                <h4 class="h5">
+                                    <a href="pages/pictures/work-progress.jpg" class="text-reset text-decoration-none" target="_blank">
+                                        Hospital Website
+                                    </a>
+                                </h4>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="card-slide border p-3 h-100">
-                            <div class="box-figure bg-light mb-2" style="height: 180px; background: #ddd;"></div>
+                            <img src="pages/pictures/work-progress.jpg" alt="Hospital Website" class="img-fluid mb-2" style="height: 180px; object-fit: cover;">
                             <div class="card-slide__info">
-                                <h4 class="h5"><a href="pages/pictures/loading.png" class="text-reset text-decoration-none">Log in page PHP</a></h4>
+                                <h4 class="h5">
+                                    <a href="pages/pictures/work-progress.jpg" class="text-reset text-decoration-none" target="_blank">
+                                        Financial Management System
+                                    </a>
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -615,26 +653,32 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <form id="contactForm" action="https://formspree.io/f/xlgojlqy" method="POST">
                             <div class="mb-4">
                                 <label for="name" class="form-label small mb-1">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" 
+                                <input type="text" class="form-control" id="name" name="name"
                                        placeholder="Your name" required
                                        style="border-radius: 0.5rem; padding: 0.75rem 1rem;">
                             </div>
                             <div class="mb-4">
                                 <label for="email" class="form-label small mb-1">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" 
+                                <input type="email" class="form-control" id="email" name="email"
                                        placeholder="your.email@example.com" required
                                        style="border-radius: 0.5rem; padding: 0.75rem 1rem;">
                             </div>
                             <div class="mb-4">
                                 <label for="message" class="form-label small mb-1">Message</label>
-                                <textarea class="form-control" id="message" name="message" 
+                                <textarea class="form-control" id="message" name="message"
                                           rows="5" placeholder="Tell me about your project..." required
                                           style="border-radius: 0.5rem; padding: 0.75rem 1rem;"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 py-3" 
+                            <div id="formSuccess" class="alert alert-success d-none" role="alert">
+                                ✅ Message sent! I'll get back to you soon.
+                            </div>
+                            <div id="formError" class="alert alert-danger d-none" role="alert">
+                                ❌ Something went wrong. Please try again.
+                            </div>   
+                            <button type="submit" id="submitBtn" class="btn btn-primary w-100 py-3"
                                     style="border-radius: 0.5rem; font-weight: 500;">
                                 Send Message
                             </button>
@@ -652,6 +696,43 @@
     <button id="goTopBtn" class="btn btn-dark rounded-circle position-fixed bottom-0 end-0 m-4 d-none" style="z-index: 1030;" aria-label="Go to top">
         <i class="bi bi-arrow-up"></i>
     </button>
+    <script>
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMsg = document.getElementById('formSuccess');
+        const errorMsg = document.getElementById('formError');
+    
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            successMsg.classList.add('d-none');
+            errorMsg.classList.add('d-none');
+    
+            const data = new FormData(form);
+    
+            try {
+                const response = await fetch('https://formspree.io/f/xlgojlqy', {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+    
+                if (response.ok) {
+                    successMsg.classList.remove('d-none');
+                    form.reset();
+                } else {
+                    errorMsg.classList.remove('d-none');
+                }
+            } catch (error) {
+                errorMsg.classList.remove('d-none');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script>
         function handleSubmit(event) {
